@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Util {
-    private static String dbURL = "jdbc:mysql://localhost:3306/test";
+    private static String dbURL = "jdbc:mysql://localhost:3306/pp1_schema?autoReconnect=true&useSSL=false"; //?autoReconnect=true&useSSL=false
     private static String dbUsername = "root";
     private static String dbPassword = "ert45dfc67";
 
