@@ -21,6 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(tableCreation);
+            connection.commit();
             System.out.println("Database has been created!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -31,6 +32,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate("DROP TABLE IF EXISTS users");
+            connection.commit();
             System.out.println("Database has been deleted!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -44,6 +46,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
+            connection.commit();
             System.out.println("User " + name + " is in the table!");
 
         } catch (SQLException throwables) {
@@ -57,6 +60,7 @@ public class UserDaoJDBCImpl implements UserDao {
                  = connection.prepareStatement("DELETE FROM users WHERE id=?")) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+            connection.commit();
             System.out.println("Database has been deleted!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -69,6 +73,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users");) {
             ResultSet resultSet = preparedStatement.executeQuery();
+            connection.commit();
 
             while (resultSet.next()) {
                 long id = resultSet.getInt("id");
@@ -94,9 +99,11 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM users");
+            connection.commit();
             System.out.println("Database has been cleaned!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 }
+
